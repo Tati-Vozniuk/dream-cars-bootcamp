@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Cars - Car Purchase Request</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            color: #1a1a2e;
+            font-size: 22px;
+        }
+
+        form {
+            background: #fff;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 14px;
+            margin-bottom: 4px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        input[type="submit"] {
+            margin-top: 20px;
+            background-color: #1a1a2e;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            font-size: 15px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #333355;
+        }
+
+        .required-note {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Dream Cars - Car Purchase Request</h1>
+
+<form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00Dfj00000XLJFx"
+      method="POST">
+
+    <input type="hidden" name="oid" value="00Dfj00000XLJFx">
+    <input type="hidden" name="retURL" value="https://www.google.com">
+    <input type="hidden" name="lead_source" value="Web">
+    <input type="hidden" name="status" value="Open - Not Contacted">
+
+    <label for="first_name">First Name *</label>
+    <input id="first_name"
+           name="first_name"
+           type="text"
+           maxlength="40"
+           required>
+
+    <label for="last_name">Last Name *</label>
+    <input id="last_name"
+           name="last_name"
+           type="text"
+           maxlength="80"
+           required>
+
+    <label for="email">Email</label>
+    <input id="email"
+           name="email"
+           type="email"
+           maxlength="80">
+
+    <label for="phone">Phone *</label>
+    <input id="phone"
+           name="phone"
+           type="tel"
+           maxlength="40"
+           required>
+
+    <label for="company">Company *</label>
+    <input id="company"
+           name="company"
+           type="text"
+           maxlength="40"
+           required>
+
+    <label for="00Nfj00004IXivV">Brand *</label>
+    <input id="00Nfj00004IXivV"
+           name="00Nfj00004IXivV"
+           type="text"
+           maxlength="50"
+           required>
+
+    <label for="00Nfj00004IXjGT">Model</label>
+    <input id="00Nfj00004IXjGT"
+           name="00Nfj00004IXjGT"
+           type="text"
+           maxlength="100">
+
+    <label for="00Nfj00004IXZOI">Fuel Type</label>
+    <select id="00Nfj00004IXZOI"
+            name="00Nfj00004IXZOI">
+        <option value="">--None--</option>
+        <option value="Gasoline">Gasoline</option>
+        <option value="Diesel">Diesel</option>
+        <option value="Electric">Electric</option>
+        <option value="Hybrid">Hybrid</option>
+    </select>
+
+    <label for="00Nfj00004IXxUj">Condition *</label>
+    <select id="00Nfj00004IXxUj"
+            name="00Nfj00004IXxUj"
+            required>
+        <option value="">--None--</option>
+        <option value="New">New</option>
+        <option value="Used">Used</option>
+    </select>
+
+    <label for="00Nfj00004IXzTJ">Year Manufactured From</label>
+    <input id="00Nfj00004IXzTJ"
+           name="00Nfj00004IXzTJ"
+           type="number">
+
+    <label for="00Nfj00004IVOAc">Year Manufactured To</label>
+    <input id="00Nfj00004IVOAc"
+           name="00Nfj00004IVOAc"
+           type="number">
+
+    <label for="00Nfj00004IY7Dx">Price From</label>
+    <input id="00Nfj00004IY7Dx"
+           name="00Nfj00004IY7Dx"
+           type="number"
+           step="0.01">
+
+    <label for="00Nfj00004IY5Tt">Price To</label>
+    <input id="00Nfj00004IY5Tt"
+           name="00Nfj00004IY5Tt"
+           type="number"
+           step="0.01">
+
+    <input type="submit" name="submit" value="Submit Request">
+
+</form>
+
+</body>
+</html>
