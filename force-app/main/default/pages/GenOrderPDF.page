@@ -1,0 +1,111 @@
+<apex:page
+    controller="GenOrderPdfController"
+    renderAs="pdf"
+    showHeader="false"
+    applyHtmlTag="false"
+    applyBodyTag="false">
+
+<html>
+<head>
+    <style type="text/css">
+        .header {
+            text-align: center;
+            border-bottom-style: solid;
+            border-bottom-color: #000000;
+            padding-bottom: 10px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 25px;
+            padding-bottom: 10px;
+        }
+        .header p {
+            font-size: 12px;
+            margin-top: 0;
+        }
+        .accountObjTable th{
+            font-size: 20px;
+            padding: 30px;
+            padding-left: 0;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .accountObjTable{
+            width: 100%;
+            border-bottom-style: solid;
+            border-bottom-color: #000000;
+            border-bottom-width: 1px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .singleSoldProduct h2{
+            font-size: 17px;
+        }
+        .singleSoldProduct p{
+            font-size: 15px;
+        }
+        .singleSoldProduct{
+            border-bottom-style: solid;
+            border-bottom-color: #000000;
+            border-bottom-width: 1px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Sales receipt/Bill of Sale</h1>
+        
+        <p>Date: 
+            <apex:outputText value="{0,date,dd.MM.yyyy}">
+                <apex:param value="{!TODAY()}" />
+            </apex:outputText>
+        </p>
+    </div>
+
+    <table class="accountObjTable">
+        <tr>
+            <th>Member</th>
+            <th>Physical Address</th>
+            <th>Opportunity details</th>
+        </tr>
+        <tr>
+            <td>{!acc.Name}</td>
+            <td>
+                {!acc.BillingCountry},
+                {!acc.BillingCity},
+                {!acc.BillingStreet},
+                {!acc.BillingPostalCode}
+            </td>
+            <td>
+                {!opp.Name}<br/>
+                Stage: {!opp.StageName}<br/>
+                Close Date:
+                <apex:outputText value="{0,date,dd.MM.yyyy}">
+                    <apex:param value="{!opp.CloseDate}" />
+                </apex:outputText>
+            </td>
+        </tr>
+    </table>
+
+    <apex:repeat value="{!productsSold}" var="product">
+        <div class="singleSoldProduct">
+            <h2>{!product.Brand__c} {!product.Model__c}</h2>
+            <p>VIN number: {!product.VIN_Number__c}</p>
+            <p>Sale price: {!product.Final_Sale_Price__c}</p>
+            <p>Sale date: 
+                <apex:outputText value="{0,date,dd.MM.yyyy}">
+                    <apex:param value="{!product.Sale_Date__c}" />
+                </apex:outputText>
+            </p>
+            <p>Quantity: {!lineItemByProductId[product.Id].Quantity}</p>
+            <p>Total Price: {!lineItemByProductId[product.Id].TotalPrice}</p>
+        </div>
+    </apex:repeat>
+
+    <h2 style="font-size: 17px;">Grand Total: {!countTotalMoney} </h2>
+</body>
+</html>
+
+</apex:page>
