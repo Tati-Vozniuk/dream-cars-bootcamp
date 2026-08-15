@@ -13,6 +13,5 @@ export default class GenerateOrderButton extends LightningElement {
         if (result === 'cancelled') {
             console.log('Modal was cancelled');
         }
-        // створення Order
     }
 }
