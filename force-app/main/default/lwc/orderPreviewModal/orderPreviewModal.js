@@ -2,7 +2,6 @@ import { api } from 'lwc';
 import LightningModal from 'lightning/modal';
 import createOrderWithPdf from '@salesforce/apex/CreateOrderButtonHandler.createOrderFromOpp';
 
-
 export default class OrderPreviewModal extends LightningModal {
     @api recordId;
 

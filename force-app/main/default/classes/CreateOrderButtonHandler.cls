@@ -13,6 +13,8 @@ public with sharing class CreateOrderButtonHandler {
             ContentVersion cv = createPdfSFFile(newOrder, pdfBlob);
 
             ContentDocumentLink cdl = attachPdfToOrder(cv, newOrder);
+
+            sendEmailWithPdf(oppId, newOrder, pdfBlob);
             return newOrder.Id;
     }
 
@@ -38,7 +40,7 @@ public with sharing class CreateOrderButtonHandler {
             newOrder.Status = 'Draft';
             newOrder.Pricebook2Id = opp.Pricebook2Id;
             insert newOrder;
-            return newOrder;
+            return [SELECT Id, OrderNumber FROM Order WHERE Id = :newOrder.Id];
     }
 
     private static List<OrderItem> createOrderItFromOppLineIt(Id oppId, Order newOrder){
@@ -91,5 +93,39 @@ public with sharing class CreateOrderButtonHandler {
         cdl.Visibility = 'AllUsers';
         insert cdl;
         return cdl;
+    }
+
+    private static void sendEmailWithPdf(Id oppId, Order newOrder, Blob pdfBlob){
+        List<OpportunityContactRole> primaryRoles = [SELECT ContactId, Contact.Email, Contact.Name FROM OpportunityContactRole
+        WHERE OpportunityId = :oppId AND IsPrimary = true LIMIT 1];
+
+        if (primaryRoles.isEmpty()) {
+            return; 
+        }
+    
+        OpportunityContactRole primaryRole = primaryRoles[0];
+    
+        if (primaryRole.Contact.Email == null) {
+            return; 
+        }
+
+        if (primaryRole != null && primaryRole.Contact.Email != null) {
+            Messaging.EmailFileAttachment attachment = new Messaging.EmailFileAttachment();
+            attachment.setFileName('Order_' + newOrder.OrderNumber + '.pdf');
+            attachment.setBody(pdfBlob);
+            attachment.setContentType('application/pdf');
+
+            Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+            email.setToAddresses(new String[] { primaryRole.Contact.Email });
+            email.setSubject('Your Order Confirmation - ' + newOrder.OrderNumber);
+            email.setPlainTextBody(
+                'Dear ' + primaryRole.Contact.Name + ',\n\n' +
+                'Thank you for your business! Please find your order details attached as a PDF.\n\n' +
+                'Best regards,\nDream Cars Sales Team'
+            );
+            email.setFileAttachments(new Messaging.EmailFileAttachment[] { attachment });
+            
+            Messaging.sendEmail(new Messaging.SingleEmailMessage[] { email });
+        }
     }
 }
