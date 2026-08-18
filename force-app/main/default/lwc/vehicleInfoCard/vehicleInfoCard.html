@@ -1,0 +1,52 @@
+<template>
+    <lightning-card title="SmartCar Vehicle Info" icon-name="standard:vehicle">
+        <div class="slds-p-horizontal_medium">
+
+            <lightning-input
+                label="Vehicle ID"
+                value={vehicleId}
+                onchange={handleVehicleIdChange}
+                class="slds-m-bottom_small">
+            </lightning-input>
+
+            <lightning-input
+                label="User ID"
+                value={userId}
+                onchange={handleUserIdChange}
+                class="slds-m-bottom_small">
+            </lightning-input>
+
+            <lightning-button
+                label="Get car info"
+                variant="brand"
+                onclick={handleGetVehicleInfo}
+                class="slds-m-right_small">
+            </lightning-button>
+
+            <lightning-button
+                label="Get location"
+                variant="neutral"
+                onclick={handleGetVehicleLocation}
+                disabled={isLocationDisabled}>
+            </lightning-button>
+
+            <template if:true={errorMessage}>
+                <div class="slds-text-color_error slds-m-top_medium">
+                    {errorMessage}
+                </div>
+            </template>
+
+            <template if:true={vehicleData}>
+                <div class="slds-m-top_medium">
+                    <p><b>Make:</b> {vehicleData.make}</p>
+                    <p><b>Model:</b> {vehicleData.model}</p>
+                    <p><b>Year:</b> {vehicleData.year}</p>
+                    <template if:true={hasLocation}>
+                        <p><b>Location:</b> {vehicleData.latitude}, {vehicleData.longitude}</p>
+                    </template>
+                </div>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>
