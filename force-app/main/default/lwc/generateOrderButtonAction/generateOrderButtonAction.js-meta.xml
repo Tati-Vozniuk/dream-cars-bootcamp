@@ -6,4 +6,9 @@
         <target>lightning__RecordPage</target>
         <target>lightning__RecordAction</target>
     </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordAction">
+            <actionType>Action</actionType>
+        </targetConfig>
+    </targetConfigs>
 </LightningComponentBundle>

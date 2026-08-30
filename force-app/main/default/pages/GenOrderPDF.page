@@ -93,7 +93,6 @@
         <div class="singleSoldProduct">
             <h2>{!product.Brand__c} {!product.Model__c}</h2>
             <p>VIN number: {!product.VIN_Number__c}</p>
-            <p>Sale price: {!product.Final_Sale_Price__c}</p>
             <p>Sale date: 
                 <apex:outputText value="{0,date,dd.MM.yyyy}">
                     <apex:param value="{!product.Sale_Date__c}" />
